@@ -1,6 +1,8 @@
+//DUNYA HOME PAGE
+
+
 const request = require('request');
 const cheerio = require('cheerio');
-const mysql = require('mysql');
 const mongodb = require('mongodb');
 // Write Header
 
@@ -13,9 +15,7 @@ request('https://dunyanews.tv/', (error, response, html) => {
             assert = require('assert');
         // Connection URL
         var url = 'mongodb://localhost:27017/';
-
         // Creations
-
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("mydb");
@@ -26,12 +26,12 @@ request('https://dunyanews.tv/', (error, response, html) => {
                  imglink = $(el).find('figure > a > img').attr('src');
                  
                 var post = {
-                    Title: title,
-                    Discription: discrp,
+                    title: title,
+                    discription: discrp,
                     newslink: newslink,
                     ilink: imglink
                 }
-                dbo.collection("dawn").insertOne(post, function(err, res) {
+                dbo.collection("dunya").insertOne(post, function(err, res) {
                     if (err) throw err;
                     console.log(i + "inserted");
                 });
